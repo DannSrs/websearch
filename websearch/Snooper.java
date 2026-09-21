@@ -21,6 +21,21 @@ public class Snooper {
                 }
             }
         );
-
+        
+        model.addQueryObserver(
+            new WebSearchModel.QueryFilter() {
+                @Override
+                public boolean include(String query) {
+                    // Retorna true se tiver mais de 60 caracteres
+                    return query.length() > 60;
+                }
+            },
+            new WebSearchModel.QueryObserver() {
+                @Override
+                public void onQuery(String query) {
+                    System.out.println("So long " + query);
+                }
+            }
+        );
     }
 }
