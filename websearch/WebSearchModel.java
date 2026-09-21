@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Perform "web search" (from a  file), notify the interested observers of each query.
+ * Perform "web search" (from a file), notify the interested observers of each
+ * query.
  */
 public class WebSearchModel {
     private final File sourceFile;
@@ -13,13 +14,17 @@ public class WebSearchModel {
         void onQuery(String query);
     }
 
+    public interface QueryFilter {
+        boolean include(String query);
+    }
+
     public WebSearchModel(File sourceFile) {
         this.sourceFile = sourceFile;
     }
 
     public void pretendToSearch() {
         try (BufferedReader br = new BufferedReader(new FileReader(sourceFile))) {
-            while ( true) {
+            while (true) {
                 String line = br.readLine();
                 if (line == null) {
                     break;
