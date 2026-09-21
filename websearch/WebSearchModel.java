@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class WebSearchModel {
     private final File sourceFile;
-    private final List<QueryObserver> observers = new ArrayList<>();
+    private final List<ObserverFilterPair> observers = new ArrayList<>();
 
     public interface QueryObserver {
         void onQuery(String query);
@@ -16,6 +16,16 @@ public class WebSearchModel {
 
     public interface QueryFilter {
         boolean include(String query);
+    }
+
+    private class ObserverFilterPair {
+        QueryFilter filter;
+        QueryObserver observer;
+
+        ObserverFilterPair(QueryFilter filter, QueryObserver observer) {
+            this.filter = filter;
+            this.observer = observer;
+        }
     }
 
     public WebSearchModel(File sourceFile) {
