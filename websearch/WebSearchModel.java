@@ -51,8 +51,12 @@ public class WebSearchModel {
     }
 
     private void notifyAllObservers(String line) {
-        for (QueryObserver obs : observers) {
-            obs.onQuery(line);
+        for (ObserverFilterPair pair : observers) {
+            // Aplica o filtro (Strategy). Só avisa o observador se o filtro retornar true.
+            if (pair.filter.include(line)) {
+                pair.observer.onQuery(line);
+            }
         }
     }
+
 }
