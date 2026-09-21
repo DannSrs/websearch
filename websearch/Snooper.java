@@ -6,20 +6,21 @@ public class Snooper {
 
     public Snooper(WebSearchModel model) {
         this.model = model;
-
         model.addQueryObserver(
-                new WebSearchModel.QueryFilter() {
-                    @Override
-                    public boolean include(String query) {
-                        return true; // Aceita tudo temporariamente para não quebrar o código
-                    }
-                },
-                new WebSearchModel.QueryObserver() {
-                    @Override
-                    public void onQuery(String query) {
-                        System.out.println("Query: " + query);
-                    }
-                });
+            new WebSearchModel.QueryFilter() {
+                @Override
+                public boolean include(String query) {
+                    // Retorna true apenas se contiver 'friend'
+                    return query.toLowerCase().contains("friend");
+                }
+            },
+            new WebSearchModel.QueryObserver() {
+                @Override
+                public void onQuery(String query) {
+                    System.out.println("Oh Yes! " + query);
+                }
+            }
+        );
 
     }
 }
