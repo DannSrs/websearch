@@ -46,8 +46,8 @@ public class WebSearchModel {
         }
     }
 
-    public void addQueryObserver(QueryObserver queryObserver) {
-        observers.add(queryObserver);
+    public void addQueryObserver(QueryFilter filter, QueryObserver queryObserver) {
+        observers.add(new ObserverFilterPair(filter, queryObserver));
     }
 
     private void notifyAllObservers(String line) {
